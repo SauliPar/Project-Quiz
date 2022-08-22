@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 038fab2e336a43944b62482d891bef26, type: 3}
   m_Name: MasterCatalog
   m_EditorClassIdentifier: 
-  QuestionAssets: []
+  QuestionAssets:
+  - {fileID: 11400000, guid: 84bf3c445b7217346ac27d17f3ddc90d, type: 2}
+  - {fileID: 11400000, guid: d37e82924d53f6346bbaeb762acc67d2, type: 2}
+  - {fileID: 11400000, guid: 3449a59a168f72843a87a2e10df9d62f, type: 2}

@@ -7,15 +7,22 @@ using System;
 
 public class GameManager : MonoBehaviour {
 
-    public static GameManager Instance;
 
-    [SerializeField] private Countdown countdown;
+
+    [Header("References")]
+    [SerializeField] private Countdown countDown;
+    [SerializeField] private Text countdownText;
     [SerializeField] private QuizMasterScript quizMasterScript;
 
-    public GameState State;
+    [Header("Attributes")]
+    [SerializeField] private float restartDelay = 2f;
+    [SerializeField] private float roundTime = 60f;
 
+    [Header("Declarations")]
+    public GameState State;
+    public static GameManager Instance;
     public static event Action<GameState> OnGameStateChanged;
-    public float restartDelay = 2f;
+    
 
     private void Awake()
     {
@@ -28,6 +35,11 @@ public class GameManager : MonoBehaviour {
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
+
+        MasterCatalogManager.Instance.Initialize();
+        quizMasterScript.Initialize();
+
+        Initialize();
     }
 
     public void Initialize()
@@ -61,16 +73,27 @@ public class GameManager : MonoBehaviour {
     }
 
     private void HandlePlayerOneTurn()
-    { 
+    {
+        Debug.Log("Player 1 turn");
+        quizMasterScript.AskQuestion();
+        countDown.InitializeTimer(roundTime);
     }
     private void HandlePlayerTwoTurn()
     {
+        Debug.Log("Player 2 turn");
     }
     private void HandleVictory()
     {
+        Debug.Log("VICTORY");
     }
     private void HandleGameOver()
     {
+        Debug.Log("GAME OVER.");
+        Invoke("RestartGame", restartDelay);
+    }
+    private void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public enum GameState

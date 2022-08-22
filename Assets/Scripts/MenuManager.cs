@@ -19,6 +19,7 @@ public class MenuManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
+        Application.targetFrameRate = 60;
         GameManager.OnGameStateChanged += GameStateChanged;
     }
 
