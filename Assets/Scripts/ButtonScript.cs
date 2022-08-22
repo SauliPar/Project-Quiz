@@ -1,32 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 
 public class ButtonScript : MonoBehaviour
 {
-    [SerializeField] private Button button1;
-    [SerializeField] private Button button2;
-    [SerializeField] private Button button3;
-    [SerializeField] private Button button4;
+    [Header("References")]
+    [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private Button button;
 
-    private int buttonPressed;
-    private int theRightAnswer;
-
-    public void OnButtonOnePressed()
-    { 
-    }
-    public void OnButtonTwoPressed()
+    public void Setup(string option, string isCorrect, UnityAction<string> buttonCallback)
     {
-    }
-    public void OnButtonThreePressed()
-    {
-    }
-    public void OnButtonFourPressed()
-    {
+        button.onClick.AddListener(() =>
+        {
+            buttonCallback(isCorrect);
+        });
+        text.text = option;
     }
 
-
+    private void OnDestroy()
+    {
+        button.onClick.RemoveAllListeners();
+    }
 
 }

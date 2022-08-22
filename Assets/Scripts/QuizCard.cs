@@ -6,6 +6,8 @@ public class QuizCard : MonoBehaviour
 {
     public Animator animator;
 
+
+
     public void QuestionPopUp()
     {
         animator.SetTrigger("pop");
