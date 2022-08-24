@@ -13,9 +13,11 @@ public class Countdown : MonoBehaviour
 
     public void InitializeTimer(float time)
     {
+        countdownText.enabled = true;
         Time.timeScale = 1f;
         roundTime = time;
         enableTimer = true;
+        SetTimerColor();
     }
     private void FixedUpdate()
     {
@@ -24,19 +26,15 @@ public class Countdown : MonoBehaviour
             roundTime -= Time.fixedDeltaTime;
             countdownText.text = roundTime.ToString("F1");
 
-            if (roundTime > 10f)
+            if (roundTime <= 10f)
             {
-                countdownText.color = Color.black;
-            }
-            else
-            {
-                countdownText.color = Color.red;
-                if (roundTime <= 0f)
-                {
-                    countdownText.text = "0";
-                    enableTimer = false;
-                    GameManager.Instance.UpdateGameState(GameManager.GameState.GameOver);
-                }
+                SetTimerColor("red");
+                    if (roundTime <= 0f)
+                    {
+                        StopTimer();
+                        countdownText.text = "0";
+                        GameManager.Instance.UpdateGameState(GameManager.GameState.GameOver);
+                    }
             }
         }
     }
@@ -44,6 +42,20 @@ public class Countdown : MonoBehaviour
     public void StopTimer()
     {
         enableTimer = false;
-        countdownText.text = "0";
+    }
+
+    public void SetTimerColor(string colorString = "black")
+    {
+        countdownText.color = colorString switch
+        {
+            "black" => Color.black,
+            "red" => Color.red,
+            "green" => Color.green,
+            _ => Color.black,
+        };
+    }
+    public void HideTimer()
+    {
+        countdownText.enabled = false;
     }
 }

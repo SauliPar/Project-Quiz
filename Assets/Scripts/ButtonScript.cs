@@ -21,9 +21,10 @@ public class ButtonScript : MonoBehaviour
         text.text = option;
     }
 
-    private void OnDestroy()
+    public void DestroyButton()
     {
         button.onClick.RemoveAllListeners();
+        Destroy(gameObject);
     }
 
 }
