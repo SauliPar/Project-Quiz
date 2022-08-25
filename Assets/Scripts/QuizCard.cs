@@ -4,6 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class QuizCard : MonoBehaviour
 {
@@ -26,7 +27,9 @@ public class QuizCard : MonoBehaviour
     [SerializeField] private Button[] buttons;
 
     [Header("Attributes")]
-    [SerializeField] private int PopCloseTime = 2;
+    [SerializeField] private float PopCloseTime = 3f;
+    [SerializeField] private float RevealWrongAnswerTime = 2f;
+    [SerializeField] private float RevealRightAnswerTime = 2f;
     private int _correctSpot;
     private bool _correctAnswer;
     private int _selectedButtonIndex;
@@ -92,18 +95,16 @@ public class QuizCard : MonoBehaviour
     private void HandleButtonPress(int buttonIndex)
     {
         _selectedButtonIndex = buttonIndex;
+        countdown.StopTimer();
         if (_selectedButtonIndex == _correctSpot)
         {
-            countdown.StopTimer();
             _correctAnswer = true;
-            Invoke(nameof(RevealAnswer), PopCloseTime);
         }
         else
         {
-            countdown.StopTimer();
             _correctAnswer = false;
-            Invoke(nameof(RevealAnswer), PopCloseTime);
         }
+        Invoke(nameof(RevealAnswer), RevealRightAnswerTime);
     }
     public void QuestionPopUp()
     {
@@ -113,6 +114,7 @@ public class QuizCard : MonoBehaviour
     {
         animator.SetTrigger("close");
     }
+    
     public void RevealAnswer()
     {
         if (_correctAnswer)
@@ -132,38 +134,41 @@ public class QuizCard : MonoBehaviour
                     button3image.color = Color.green;
                     break;
             }
+
             GameManager.Instance.UpdateGameState(GameManager.GameState.Correct);
         }
         else
         {
             var changedColors = _normalColors;
             changedColors.selectedColor = Color.red;
-                foreach (Button button in buttons)
-                {
-                    button.colors = changedColors;
-                }
-
-            switch (_correctSpot)
+            foreach (Button button in buttons)
             {
-                case 0:
-                    button0image.color = Color.green;
-                    break;
-                case 1:
-                    button1image.color = Color.green;
-                    break;
-                case 2:
-                    button2image.color = Color.green;
-                    break;
-                case 3:
-                    button3image.color = Color.green;
-                    break;
+                button.colors = changedColors;
             }
-            
-            GameManager.Instance.UpdateGameState(GameManager.GameState.Wrong);
-            
-            
+            Invoke(nameof(RevealWrongAnswer), RevealWrongAnswerTime);
         }
         Invoke(nameof(QuestionPopOut), PopCloseTime);
+    }
+
+    private void RevealWrongAnswer()
+    {
+        switch (_correctSpot)
+        {
+            case 0:
+                button0image.color = Color.green;
+                break;
+            case 1:
+                button1image.color = Color.green;
+                break;
+            case 2:
+                button2image.color = Color.green;
+                break;
+            case 3:
+                button3image.color = Color.green;
+                break;
+        }
+
+        GameManager.Instance.UpdateGameState(GameManager.GameState.Wrong);
     }
 
     public void OnDestroy()

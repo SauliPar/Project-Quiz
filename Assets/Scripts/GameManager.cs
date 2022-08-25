@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
+using TMPro;
 
 public class GameManager : MonoBehaviour {
 
@@ -11,11 +12,20 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private QuizMasterScript quizMasterScript;
     [SerializeField] private GameObject playerOnePanel;
     [SerializeField] private GameObject playerTwoPanel;
+    [SerializeField] private GameObject playerOneWinPanel;
+    [SerializeField] private GameObject playerTwoWinPanel;
+    [SerializeField] private TextMeshProUGUI playerOneScoreText;
+    [SerializeField] private TextMeshProUGUI playerTwoScoreText;
 
     [Header("Attributes")]
     [SerializeField] private float restartDelay = 3f;
     [SerializeField] private float roundTime = 60f;
     [SerializeField] private int waitTime = 3;
+
+    [Header("Game Settings")]
+    [SerializeField] private int playerOneScore = 0;
+    [SerializeField] private int playerTwoScore = 0;
+    [SerializeField] private int pointsToWin = 3;
 
     [Header("GameState")]
     public GameState State;
@@ -44,7 +54,26 @@ public class GameManager : MonoBehaviour {
 
     public void Initialize()
     {
+        UpdatePlayerScore();
         UpdateGameState(GameState.PlayerTurn);
+    }
+
+    private void UpdatePlayerScore(int playerNumber = 0)
+    {
+        if (playerNumber == 1)
+        {
+            playerOneScore++;
+        }
+        else if (playerNumber == 2)
+        {
+            playerTwoScore++;
+        }
+        else
+        {
+            playerOneScore = playerTwoScore = 0;
+        }
+        playerOneScoreText.text = $"P1: {playerOneScore}";
+        playerTwoScoreText.text = $"P2: {playerTwoScore}";
     }
 
     public bool TurnSwapper()
@@ -69,7 +98,7 @@ public class GameManager : MonoBehaviour {
                 HandleWrong();
                 break;
             case GameState.Victory:
-                HandleVictory();
+                Invoke(nameof(HandleVictory), waitTime);
                 break;
             case GameState.GameOver:
                 HandleGameOver();
@@ -114,7 +143,16 @@ public class GameManager : MonoBehaviour {
     private void HandleCorrect()
     {
         Debug.Log("CORRECT");
-        Invoke(nameof(NextPlayer), waitTime);
+        if (_playerOneTurn) UpdatePlayerScore(1);
+        else UpdatePlayerScore(2);
+        if (playerOneScore >= pointsToWin || playerTwoScore >= pointsToWin)
+        {
+            UpdateGameState(GameState.Victory);
+        }
+        else
+        {
+            Invoke(nameof(NextPlayer), waitTime);
+        }
     }
     
     private void HandleWrong()
@@ -124,7 +162,17 @@ public class GameManager : MonoBehaviour {
     }
     private void HandleVictory()
     {
-        Debug.Log("VICTORY");
+        if (playerOneScore > playerTwoScore)
+        {
+            Debug.Log("Player One Wins!");
+            playerOneWinPanel.SetActive(true);
+        }
+        else if (playerTwoScore > playerOneScore)
+        {
+            Debug.Log("Player Two Wins");
+            playerOneWinPanel.SetActive(true);
+        }
+        Invoke(nameof(RestartGame), restartDelay);
     }
     private void HandleGameOver()
     {

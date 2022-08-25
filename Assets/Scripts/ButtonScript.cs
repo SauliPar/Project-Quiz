@@ -1,30 +1,38 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using DG.Tweening;
 
 
 public class ButtonScript : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private TextMeshProUGUI text;
-    [SerializeField] private Button button;
+    [SerializeField] private RectTransform rectTransform;
 
-    public void Setup(string option, string isCorrect, UnityAction<string> buttonCallback)
+    [Header("Attributes")]
+    [SerializeField] private float hoverEnterScale = 1.2f;
+    [SerializeField] private float hoverEnterTime = 0.1f;
+    [SerializeField] private float hoverExitTime = 0.1f;
+
+    private void Start()
     {
-        button.onClick.AddListener(() =>
-        {
-            buttonCallback(isCorrect);
-        });
-        text.text = option;
+        ButtonHoverExit();
     }
-
-    public void DestroyButton()
+    public void ButtonHoverEnter()
     {
-        button.onClick.RemoveAllListeners();
-        Destroy(gameObject);
+        rectTransform.DOScale(hoverEnterScale, hoverEnterTime);
     }
-
+    public void ButtonHoverExit()
+    {
+        rectTransform.DOScale(1f, hoverExitTime);
+    }
+    private void OnDisable()
+    {
+        rectTransform.localScale = Vector3.one;
+    }
 }
