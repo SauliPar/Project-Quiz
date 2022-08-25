@@ -795,6 +795,15 @@ MonoBehaviour:
   button2Text: {fileID: 3759452635579302779}
   button3Text: {fileID: 785279850929995610}
   countdown: {fileID: 970430338317072021}
+  button0image: {fileID: 6636745982796619851}
+  button1image: {fileID: 3331184560187457169}
+  button2image: {fileID: 7275950894517866787}
+  button3image: {fileID: 1105930910621950903}
+  buttons:
+  - {fileID: 8354456082005831079}
+  - {fileID: 4699427704963326363}
+  - {fileID: 1021795711638066855}
+  - {fileID: 269191771215654149}
   PopCloseTime: 2
 --- !u!114 &970430338317072021
 MonoBehaviour:
@@ -1259,7 +1268,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0.39215687}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.5882353}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.78431374}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.9339623, g: 0.030838395, b: 0.030838395, a: 1}
     m_DisabledColor: {r: 0.3301887, g: 0.3301887, b: 0.3301887, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1

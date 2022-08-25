@@ -7,18 +7,19 @@ using System;
 
 public class GameManager : MonoBehaviour {
 
-
-
     [Header("References")]
     [SerializeField] private QuizMasterScript quizMasterScript;
+    [SerializeField] private GameObject playerOnePanel;
+    [SerializeField] private GameObject playerTwoPanel;
 
     [Header("Attributes")]
     [SerializeField] private float restartDelay = 3f;
     [SerializeField] private float roundTime = 60f;
     [SerializeField] private int waitTime = 3;
 
-    [Header("Declarations")]
+    [Header("GameState")]
     public GameState State;
+
     public static GameManager Instance;
     public static event Action<GameState> OnGameStateChanged;
     private bool _playerOneTurn = true;
@@ -43,7 +44,7 @@ public class GameManager : MonoBehaviour {
 
     public void Initialize()
     {
-        UpdateGameState(GameState.PlayerOneTurn);
+        UpdateGameState(GameState.PlayerTurn);
     }
 
     public bool TurnSwapper()
@@ -58,11 +59,8 @@ public class GameManager : MonoBehaviour {
 
         switch (newState) 
         {
-            case GameState.PlayerOneTurn:
-                HandlePlayerOneTurn();
-                break;
-            case GameState.PlayerTwoTurn:
-                HandlePlayerTwoTurn();
+            case GameState.PlayerTurn:
+                ShowPlayerPanel();
                 break;
             case GameState.Correct:
                 HandleCorrect();
@@ -82,28 +80,36 @@ public class GameManager : MonoBehaviour {
 
         OnGameStateChanged?.Invoke(newState);
     }
-
+    private void ShowPlayerPanel()
+    {
+        if (_playerOneTurn)
+        {
+            playerOnePanel.SetActive(true);
+            Invoke(nameof(HandlePlayerOneTurn), waitTime);
+        }
+        else
+        {
+            playerTwoPanel.SetActive(true);
+            Invoke(nameof(HandlePlayerTwoTurn), waitTime);
+        } 
+    }
     private void HandlePlayerOneTurn()
     {
         Debug.Log("Player 1 turn");
+        playerOnePanel.SetActive(false);
         quizMasterScript.AskQuestion();
     }
     private void HandlePlayerTwoTurn()
     {
         Debug.Log("Player 2 turn");
+        playerTwoPanel.SetActive(false);
         quizMasterScript.AskQuestion();
     }
     private void NextPlayer()
     {
         quizMasterScript.DestroyQuizCard();
-        if (TurnSwapper() == true)
-        {
-            UpdateGameState(GameState.PlayerOneTurn);
-        }
-        else
-        {
-            UpdateGameState(GameState.PlayerTwoTurn);
-        }
+        TurnSwapper();
+        UpdateGameState(GameState.PlayerTurn);
     }
     private void HandleCorrect()
     {
@@ -137,8 +143,7 @@ public class GameManager : MonoBehaviour {
 
     public enum GameState
     { 
-        PlayerOneTurn,
-        PlayerTwoTurn,
+        PlayerTurn,
         Correct,
         Wrong,
         Victory,
