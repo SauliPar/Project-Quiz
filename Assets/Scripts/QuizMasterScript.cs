@@ -19,10 +19,10 @@ public class QuizMasterScript : MonoBehaviour
         allQuestions = MasterCatalogManager.Instance.GetAllQuestions();
         _unansweredQuestions = allQuestions;
         ShuffleList();
-        //foreach (var question in allQuestions)
-        //{
-        //    Debug.Log("Kyssäriteksti: " +question.questionText);
-        //}
+        foreach (var question in allQuestions)
+        {
+            Debug.Log("Kyssäriteksti: " + question.questionText);
+        }
     }
 
     public void DestroyQuizCard()

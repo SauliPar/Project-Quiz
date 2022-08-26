@@ -1013,7 +1013,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   quizCardTemplate: {fileID: 6043949376281977953, guid: 32eecaef1774e504484d490d31a6b204, type: 3}
   quizCardTransform: {fileID: 1298735195}
-  countDown: {fileID: 0}
 --- !u!4 &1002424269
 Transform:
   m_ObjectHideFlags: 0

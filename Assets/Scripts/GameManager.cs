@@ -170,7 +170,7 @@ public class GameManager : MonoBehaviour {
         else if (playerTwoScore > playerOneScore)
         {
             Debug.Log("Player Two Wins");
-            playerOneWinPanel.SetActive(true);
+            playerTwoWinPanel.SetActive(true);
         }
         Invoke(nameof(RestartGame), restartDelay);
     }
