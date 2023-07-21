@@ -7,7 +7,11 @@ using UnityEngine;
 		public virtual void Awake()
 		{
 			if (!Instance)
+			{
 				Instance = this as TInstance;
+				DontDestroyOnLoad(gameObject);
+			}
+
 			else
 				Destroy(transform.gameObject);
 		}

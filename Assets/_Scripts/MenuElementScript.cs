@@ -47,5 +47,24 @@ public class MenuElementScript : MonoBehaviour, IPointerEnterHandler, IPointerEx
         transform.DOScale(defaultSize + 0.1f, shrinkTime * 2);
     }
 
-   
+    public void SinglePlayerButtonPressed()
+    {
+        SettingsManager.Instance.GoToGameModeMenu();
+    }
+    public void CoopButtonPressed()
+    {
+        SettingsManager.Instance.GoToRulesMenu();
+    }
+    public void SettingsButtonPressed()
+    {
+        SettingsManager.Instance.GoToSettingsMenu();
+    }
+    public void BackButtonPressed()
+    {
+        SettingsManager.Instance.GoToMainMenu();
+    }
+    public void QuitButtonPressed()
+    {
+        SettingsManager.Instance.QuitGame();
+    }
 }
