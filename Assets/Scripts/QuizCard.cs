@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.Serialization;
 
 public class QuizCard : MonoBehaviour
 {
@@ -25,11 +26,12 @@ public class QuizCard : MonoBehaviour
 
     [Header("Buttons")]
     [SerializeField] private Button[] buttons;
-
+    
     [Header("Attributes")]
-    [SerializeField] private float PopCloseTime = 3f;
-    [SerializeField] private float RevealWrongAnswerTime = 2f;
-    [SerializeField] private float RevealRightAnswerTime = 2f;
+    [SerializeField] private float popCloseTime = 3f;
+    [SerializeField] private float revealWrongAnswerTime = 2f;
+    [SerializeField] private float revealRightAnswerTime = 2f;
+    
     private int _correctSpot;
     private bool _correctAnswer;
     private int _selectedButtonIndex;
@@ -104,7 +106,7 @@ public class QuizCard : MonoBehaviour
         {
             _correctAnswer = false;
         }
-        Invoke(nameof(RevealAnswer), RevealRightAnswerTime);
+        Invoke(nameof(RevealAnswer), revealRightAnswerTime);
     }
     public void QuestionPopUp()
     {
@@ -145,9 +147,9 @@ public class QuizCard : MonoBehaviour
             {
                 button.colors = changedColors;
             }
-            Invoke(nameof(RevealWrongAnswer), RevealWrongAnswerTime);
+            Invoke(nameof(RevealWrongAnswer), revealWrongAnswerTime);
         }
-        Invoke(nameof(QuestionPopOut), PopCloseTime);
+        Invoke(nameof(QuestionPopOut), popCloseTime);
     }
 
     private void RevealWrongAnswer()

@@ -21,7 +21,7 @@ public class QuizMasterScript : MonoBehaviour
         ShuffleList();
         foreach (var question in allQuestions)
         {
-            Debug.Log("Kyssäriteksti: " + question.questionText);
+            Debug.Log("Kyssäritekstietrter: " + question.questionText);
         }
     }
 
