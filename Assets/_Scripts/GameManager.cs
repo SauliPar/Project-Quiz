@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI playerOneScoreText;
     [SerializeField] private TextMeshProUGUI playerTwoScoreText;
     [SerializeField] private GameObject statisticsWindow;
+    [SerializeField] private StatsManager statsManager;
 
     [Header("Attributes")]
     [SerializeField] private float restartDelay = 3f;
@@ -56,6 +57,7 @@ public class GameManager : MonoBehaviour {
 
     public void Initialize()
     {
+        SettingsManager.Instance.HideAllMenus();
         UpdatePlayerScore();
         UpdateGameState(GameState.PlayerTurn);
     }
@@ -65,10 +67,12 @@ public class GameManager : MonoBehaviour {
         if (playerNumber == 1)
         {
             playerOneScore++;
+            statsManager.IncrementPlayerCorrectAnswers();
         }
         else if (playerNumber == 2)
         {
             playerTwoScore++;
+            statsManager.IncrementPlayerCorrectAnswers(2);
         }
         else
         {
@@ -160,6 +164,16 @@ public class GameManager : MonoBehaviour {
     private void HandleWrong()
     {
         Debug.Log("WRONG");
+
+        if (_playerOneTurn)
+        {
+            statsManager.IncrementPlayerWrongAnswers();
+        }
+        else
+        {
+            statsManager.IncrementPlayerWrongAnswers(2);
+        }
+        
         Invoke(nameof(NextPlayer), waitTime);
     }
     private void HandleVictory()

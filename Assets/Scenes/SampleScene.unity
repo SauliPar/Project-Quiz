@@ -1123,13 +1123,14 @@ GameObject:
   - component: {fileID: 739612909}
   - component: {fileID: 739612908}
   - component: {fileID: 739612907}
+  - component: {fileID: 739612910}
   m_Layer: 0
   m_Name: StatsCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &739612906
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1218,6 +1219,24 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 10
   m_TargetDisplay: 0
+--- !u!114 &739612910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739612905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42664c3e94b3717458c7df9472fddc87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerOneCorrectAnswerText: {fileID: 158168670}
+  playerOneWrongAnswerText: {fileID: 1349511960}
+  playerOnePercentageText: {fileID: 1023077750}
+  playerTwoCorrectAnswerText: {fileID: 1233736082}
+  playerTwoWrongAnswerText: {fileID: 1597382708}
+  playerTwoPercentageText: {fileID: 361980770}
 --- !u!1 &857653035
 GameObject:
   m_ObjectHideFlags: 0
@@ -1927,6 +1946,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1210182294
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1210182295}
+  - component: {fileID: 1210182296}
+  m_Layer: 0
+  m_Name: StatsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1210182295
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210182294}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2070601222}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1210182296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210182294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5860b8af16e725e47b361ffed804c7fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateStatistics: {fileID: 739612910}
 --- !u!1 &1233736080
 GameObject:
   m_ObjectHideFlags: 0
@@ -2671,6 +2735,7 @@ MonoBehaviour:
   playerOneScoreText: {fileID: 1948690608}
   playerTwoScoreText: {fileID: 1001332172}
   statisticsWindow: {fileID: 739612905}
+  statsManager: {fileID: 1210182296}
   restartDelay: 5
   roundTime: 20
   waitTime: 2
@@ -4250,6 +4315,7 @@ Transform:
   - {fileID: 296239080}
   - {fileID: 562281598}
   - {fileID: 1567087815}
+  - {fileID: 1210182295}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
