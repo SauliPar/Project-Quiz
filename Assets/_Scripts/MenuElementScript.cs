@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class MenuElementScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -66,5 +67,11 @@ public class MenuElementScript : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public void QuitButtonPressed()
     {
         SettingsManager.Instance.QuitGame();
+    }
+
+    public void BackToMainMenuScene()
+    {
+        Debug.Log("nappi toimii pahvi :D");
+        SceneManager.LoadScene("MainMenuScene");
     }
 }

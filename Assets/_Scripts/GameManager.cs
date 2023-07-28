@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
 using TMPro;
+using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour {
 
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private GameObject playerTwoWinPanel;
     [SerializeField] private TextMeshProUGUI playerOneScoreText;
     [SerializeField] private TextMeshProUGUI playerTwoScoreText;
+    [SerializeField] private GameObject statisticsWindow;
 
     [Header("Attributes")]
     [SerializeField] private float restartDelay = 3f;
@@ -172,7 +174,7 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Player Two Wins");
             playerTwoWinPanel.SetActive(true);
         }
-        Invoke(nameof(RestartGame), restartDelay);
+        Invoke(nameof(ShowStatisticsWindow), restartDelay);
     }
     private void HandleGameOver()
     {
@@ -182,6 +184,14 @@ public class GameManager : MonoBehaviour {
     private void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void ShowStatisticsWindow()
+    {
+        playerOneWinPanel.SetActive(false);
+        playerTwoWinPanel.SetActive(false);
+
+        statisticsWindow.SetActive(true);
     }
 
     public float GetRoundTime()

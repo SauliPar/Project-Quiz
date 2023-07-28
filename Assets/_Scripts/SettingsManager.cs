@@ -12,8 +12,9 @@ public class SettingsManager : Singleton<SettingsManager>
 
     private RoundAmountSelection.RoundAmount _selectedRounds;
     
-    private void Start()
+    public void Initialize()
     {
+        Debug.Log("Käytiin startissa");
         HideAllMenus();
         
         Scene scene = SceneManager.GetActiveScene();
@@ -29,6 +30,14 @@ public class SettingsManager : Singleton<SettingsManager>
         _selectedRounds = selectedRounds;
         
         GoToGame();
+    }
+
+    public void PrintSelectedRounds()
+    {
+        if (_selectedRounds != null)
+        {
+            Debug.Log("HEI TWITCH CHATTI, SELECTED ROUNDS ON: "+ _selectedRounds);
+        }
     }
 
     public void GoToSettingsMenu()

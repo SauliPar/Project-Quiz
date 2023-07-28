@@ -16,6 +16,7 @@ public class QuizMasterScript : MonoBehaviour
 
     public void Initialize()
     {
+        SettingsManager.Instance.PrintSelectedRounds();
         allQuestions = MasterCatalogManager.Instance.GetAllQuestions();
         _unansweredQuestions = allQuestions;
         ShuffleList();
