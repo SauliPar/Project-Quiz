@@ -32,6 +32,24 @@ public class SettingsManager : Singleton<SettingsManager>
         GoToGame();
     }
 
+    public int GetSelectedRounds()
+     {
+    //     var returnValue = 0;
+    //     switch (_selectedRounds)
+    //     {
+    //         case RoundAmountSelection.RoundAmount.Fast:
+    //             returnValue = 5;
+    //             break;
+    //         case RoundAmountSelection.RoundAmount.Medium:
+    //             returnValue = 10;
+    //             break;
+    //         case RoundAmountSelection.RoundAmount.Long:
+    //             returnValue = 15;
+    //             break;
+    //     }
+        return (int)_selectedRounds;
+    }
+
     public void PrintSelectedRounds()
     {
         if (_selectedRounds != null)

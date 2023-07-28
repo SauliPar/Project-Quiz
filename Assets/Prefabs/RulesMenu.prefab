@@ -571,7 +571,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: choose rounds
+  m_text: 'points
+
+    to win:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c3574f6b9d8a78948b01855e87c916fb, type: 2}
   m_sharedMaterial: {fileID: -4252055762166162318, guid: c3574f6b9d8a78948b01855e87c916fb, type: 2}

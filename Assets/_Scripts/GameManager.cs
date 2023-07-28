@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI playerTwoScoreText;
     [SerializeField] private GameObject statisticsWindow;
     [SerializeField] private StatsManager statsManager;
+    private SettingsManager _mySettingsManager;
 
     [Header("Attributes")]
     [SerializeField] private float restartDelay = 3f;
@@ -28,7 +29,7 @@ public class GameManager : MonoBehaviour {
     [Header("Game Settings")]
     [SerializeField] private int playerOneScore = 0;
     [SerializeField] private int playerTwoScore = 0;
-    [SerializeField] private int pointsToWin = 3;
+    private int _pointsToWin;
 
     [Header("GameState")]
     public GameState State;
@@ -52,12 +53,23 @@ public class GameManager : MonoBehaviour {
 
         MasterCatalogManager.Instance.Initialize();
         quizMasterScript.Initialize();
+
+        _mySettingsManager = SettingsManager.Instance;
         Initialize();
     }
 
     public void Initialize()
     {
-        SettingsManager.Instance.HideAllMenus();
+        _mySettingsManager.HideAllMenus();
+        _pointsToWin = _mySettingsManager.GetSelectedRounds();
+
+        Debug.Log("points to win oli: " + _pointsToWin);
+
+        if (_pointsToWin <= 0)
+        {
+            _pointsToWin = 5;
+        }
+        
         UpdatePlayerScore();
         UpdateGameState(GameState.PlayerTurn);
     }
@@ -151,7 +163,7 @@ public class GameManager : MonoBehaviour {
         Debug.Log("CORRECT");
         if (_playerOneTurn) UpdatePlayerScore(1);
         else UpdatePlayerScore(2);
-        if (playerOneScore >= pointsToWin || playerTwoScore >= pointsToWin)
+        if (playerOneScore >= _pointsToWin || playerTwoScore >= _pointsToWin)
         {
             UpdateGameState(GameState.Victory);
         }
